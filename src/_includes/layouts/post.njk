@@ -1,0 +1,20 @@
+---
+layout: layouts/base.njk
+---
+<article class="post">
+    <a href="/blog/" class="post-back">← All posts</a>
+    <div class="post-meta fade rv"><span class="post-tag">{{ tag }}</span><span>{{ page.date | auDate }}</span><span>{{ content | readMins }} min read</span></div>
+    <h1 class="post-title fade rv">{{ title }}</h1>
+    <div class="post-hero post-art fade rv tone-{{ tone }}"><img src="/assets/img/{{ art }}.svg" alt=""></div>
+    <div class="post-content fade rv">
+      {{ content | safe }}
+    </div>
+    <div class="post-cta fade rv">
+      <h2>Ready to make yours?</h2>
+      <a href="/shop/" class="btn btn-ink magnetic">Build your stickers</a>
+    </div>
+    <h2 class="more-title">More from the blog</h2>
+    <div class="post-grid">
+      {% for post in collections.posts | excludeUrl(page.url) | limit(3) %}{% set i = loop.index0 %}{% include "partials/post-card.njk" %}{% endfor %}
+    </div>
+</article>

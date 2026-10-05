@@ -1,0 +1,19 @@
+---
+layout: layouts/base.njk
+title: Blog
+description: "Tips, guides and behind-the-scenes from the Deadset Stickers workshop."
+nav: blog
+permalink: /blog/
+---
+<section class="blog">
+    <div class="shop-head">
+      <h1 class="mega split rv" aria-label="The sticky notes">
+        <span class="line" aria-hidden="true"><span>The sticky</span></span>
+        <span class="line" aria-hidden="true"><span>notes</span></span>
+      </h1>
+      <p class="lede fade rv" style="--i:2">Tips, guides and behind-the-scenes from the Deadset workshop.</p>
+    </div>
+    <div class="post-grid">
+      {% for post in collections.posts %}{% set i = loop.index0 %}{% include "partials/post-card.njk" %}{% endfor %}
+    </div>
+</section>

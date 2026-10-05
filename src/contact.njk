@@ -1,0 +1,50 @@
+---
+layout: layouts/base.njk
+title: Contact
+description: "Questions about an order, a bulk quote or your artwork? Send Deadset Stickers a message."
+nav: contact
+permalink: /contact/
+scripts: ["/assets/js/contact.js"]
+---
+<section class="contact">
+    <div class="contact-info">
+      <h1 class="mega split rv" aria-label="Get in touch">
+        <span class="line" aria-hidden="true"><span>Get in</span></span>
+        <span class="line" aria-hidden="true"><span>touch</span></span>
+      </h1>
+      <p class="lede fade rv" style="--i:2">Questions about an order, a bulk quote, or not sure your artwork will work? Send us a message and a real person will get back to you.</p>
+      <img src="/assets/img/skull-only.svg" class="contact-skull" alt="">
+    </div>
+
+    <form class="form fade rv" id="contactForm" name="contact" method="POST" action="/contact/?sent=1" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" novalidate style="--i:2">
+      <input type="hidden" name="form-name" value="contact">
+      <p class="hp-field" aria-hidden="true"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <div class="two">
+        <div class="field"><label for="cName">Name</label><input id="cName" name="name" autocomplete="name" required><span class="err-msg">Please add your name.</span></div>
+        <div class="field"><label for="cEmail">Email</label><input id="cEmail" name="email" type="email" autocomplete="email" required><span class="err-msg">Please add an email we can reply to.</span></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="cPhone">Phone <span class="opt-tag">(optional)</span></label><input id="cPhone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="cTopic">What's it about?</label>
+          <div class="select-wrap"><select id="cTopic" name="topic">
+            <option value="general">General question</option>
+            <option value="bulk">Bulk quote (5,000+)</option>
+            <option value="order">Help with an order</option>
+            <option value="artwork">Help with my artwork</option>
+          </select></div>
+        </div>
+      </div>
+      <div class="field"><label for="cMsg">Message</label><textarea id="cMsg" name="message" required></textarea><span class="err-msg">Please tell us a bit about what you need.</span></div>
+      <div class="field"><label for="cFile">Attach artwork <span class="opt-tag">(optional)</span></label>
+        <label class="file-pick"><input type="file" id="cFile" name="artwork" accept=".png,.jpg,.jpeg,.svg,.pdf,.ai"><span id="cFileText">Choose a file</span></label>
+      </div>
+      <p class="form-error" id="contactError" role="alert" hidden></p>
+      <button class="btn btn-block magnetic" type="submit">Send message</button>
+    </form>
+    <div class="form form-done" id="formDone" hidden>
+      <img src="/assets/img/cactus.svg" alt="">
+      <h2>Message sent!</h2>
+      <p>Thanks for getting in touch. We'll get back to you within one business day.</p>
+      <button class="btn btn-ghost" type="button" id="formAgain">Send another</button>
+    </div>
+  </section>

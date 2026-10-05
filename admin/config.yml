@@ -1,0 +1,73 @@
+# Admin panel settings (Decap CMS). Log in at /admin/
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: posts
+    label: Blog posts
+    label_singular: Blog post
+    folder: src/blog/posts
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: [date, title]
+    summary: "{{title}} ({{date}})"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, date_format: "DD/MM/YYYY", time_format: false, format: "YYYY-MM-DD", picker_utc: true }
+      - { label: Category, name: tag, widget: select, options: [Guides, Tips, News, Behind the scenes], default: Guides }
+      - label: Picture
+        name: art
+        widget: select
+        default: skull-only
+        options:
+          - { label: Skull, value: skull-only }
+          - { label: Cactus, value: cactus }
+          - { label: Cactus and skull, value: logo-icon }
+      - label: Picture background
+        name: tone
+        widget: select
+        default: ink
+        options:
+          - { label: Black, value: ink }
+          - { label: Gold, value: mus }
+          - { label: Cream, value: bone }
+      - { label: Short summary (shown on the blog page), name: excerpt, widget: text }
+      - { label: Post, name: body, widget: markdown }
+
+  - name: shop
+    label: Shop settings
+    files:
+      - name: pricing
+        label: Prices and shipping
+        file: src/_data/pricing.json
+        fields:
+          - { label: Note, name: note, widget: hidden }
+          - { label: Shipping cost (AUD, includes GST), name: shipping, widget: number, value_type: float, min: 0 }
+          - { label: "'Most popular' size (position in the size list, starting at 0)", name: popularSize, widget: number, value_type: int, min: 0 }
+          - label: Quick-pick quantity buttons
+            name: quickQuantities
+            widget: list
+            field: { label: Quantity, name: qty, widget: number, value_type: int }
+          - label: Sizes
+            name: sizes
+            widget: list
+            hint: "The order here must match the order of prices in every quantity row below."
+            summary: "{{fields.cm}} x {{fields.cm}} cm"
+            fields:
+              - { label: Width and height (cm), name: cm, widget: number, value_type: float }
+              - { label: Area (square mm, from the supplier price list), name: mm2, widget: number, value_type: int }
+          - label: Prices by quantity
+            name: rows
+            widget: list
+            hint: "Each row is one quantity. List one total price (AUD incl. GST) per size, in the same order as the sizes above."
+            summary: "{{fields.qty}} stickers"
+            fields:
+              - { label: Quantity, name: qty, widget: number, value_type: int }
+              - label: Prices (one per size)
+                name: prices
+                widget: list
+                field: { label: Price, name: price, widget: number, value_type: float }

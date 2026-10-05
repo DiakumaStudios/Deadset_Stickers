@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{% if nav == "home" %}Deadset Stickers | {{ title }}{% else %}{{ title }} | Deadset Stickers{% endif %}</title>
+<meta name="description" content="{{ description or site.description }}">
+<meta property="og:title" content="{{ title }} | Deadset Stickers">
+<meta property="og:description" content="{{ description or site.description }}">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#181818">
+<link rel="icon" href="/assets/img/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+<noscript><style>.wipe{display:none}.rv,.split .line>span{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body data-nav="{{ nav }}">
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><span></span></div>
+<div class="cursor" aria-hidden="true"><i><b>Drag</b></i></div>
+<div class="wipe" aria-hidden="true"><img src="/assets/img/logo-icon.svg" alt=""></div>
+
+{% set links = [["home", "/", "Home"], ["about", "/about/", "About"], ["shop", "/shop/", "Shop"], ["blog", "/blog/", "Blog"], ["contact", "/contact/", "Contact"]] %}
+<header class="site-head">
+  <a href="/" class="brand" aria-label="Deadset Stickers home"><img src="/assets/img/logo-icon.svg" alt="" class="brand-badge"><img src="/assets/img/logo.svg" alt="" class="brand-word"></a>
+  <nav class="nav" aria-label="Main">
+    {% for l in links %}<a href="{{ l[1] }}" class="roll{% if nav == l[0] %} active{% endif %}"{% if nav == l[0] %} aria-current="page"{% endif %}><span data-text="{{ l[2] }}">{{ l[2] }}</span></a>
+    {% endfor %}
+  </nav>
+  <a href="/shop/" class="btn btn-sm magnetic head-cta">Build your stickers</a>
+  <button class="menu-btn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menu"><span></span><span></span></button>
+</header>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+  {% for l in links %}<a href="{{ l[1] }}" style="--i:{{ loop.index0 }}"{% if nav == l[0] %} aria-current="page"{% endif %}>{{ l[2] }}</a>
+  {% endfor %}
+</nav>
+
+<main>
+{{ content | safe }}
+</main>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div><h2>Deadset Stickers</h2><p>Custom die-cut stickers, printed tough and shipped fast.</p></div>
+    <div><h2>Pages</h2><ul>{% for l in links %}<li><a href="{{ l[1] }}">{{ l[2] }}</a></li>{% endfor %}</ul></div>
+    <div><h2>Say g'day</h2><p>Questions, bulk quotes or artwork help?</p><a href="/contact/" class="btn btn-sm magnetic">Contact us</a></div>
+  </div>
+  <div class="foot-word" aria-hidden="true">DEADSET</div>
+  <div class="foot-small"><span>© <span id="yr">2026</span> Deadset Stickers</span><span>Printed in Australia</span></div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="/assets/js/site.js"></script>
+{% for s in scripts %}<script src="{{ s }}"></script>
+{% endfor %}
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
+<script>
+  // Sends admins to the CMS after accepting an invite or logging in.
+  window.addEventListener('load', function () {
+    if (!window.netlifyIdentity) return;
+    window.netlifyIdentity.on('init', function (user) {
+      if (!user) window.netlifyIdentity.on('login', function () { document.location.href = '/admin/'; });
+    });
+  });
+</script>
+</body>
+</html>

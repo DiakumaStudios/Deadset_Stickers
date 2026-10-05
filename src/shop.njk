@@ -1,0 +1,86 @@
+---
+layout: layouts/base.njk
+title: "Build your stickers"
+description: "Pick a size and quantity, upload your artwork and see your price instantly. Custom die-cut stickers from 50 units."
+nav: shop
+permalink: /shop/
+scripts: ["/assets/js/shop.js"]
+---
+<section class="shop">
+    <div class="shop-head">
+      <h1 class="mega split rv" aria-label="Build your stickers">
+        <span class="line" aria-hidden="true"><span>Build your</span></span>
+        <span class="line" aria-hidden="true"><span>stickers</span></span>
+      </h1>
+      <p class="lede fade rv" style="--i:2">Pick a size, pick how many, upload your art. The price updates as you go.</p>
+    </div>
+
+    <div class="builder">
+      <div class="board-wrap fade rv" style="--i:2">
+        <div class="board" id="board">
+          <div class="stack" id="stack">
+            <span class="dim"><b id="dimLabel">7.5 cm</b></span>
+            <span class="dim dim-v"><b id="dimLabelV">7.5 cm</b></span>
+            <img src="/assets/img/cactus.svg" class="ghost" style="--g:5" alt="">
+            <img src="/assets/img/cactus.svg" class="ghost" style="--g:4" alt="">
+            <img src="/assets/img/cactus.svg" class="ghost" style="--g:3" alt="">
+            <img src="/assets/img/cactus.svg" class="ghost" style="--g:2" alt="">
+            <img src="/assets/img/cactus.svg" class="ghost" style="--g:1" alt="">
+            <img src="/assets/img/cactus.svg" class="main" id="previewArt" alt="Preview of your sticker">
+          </div>
+          <span class="ruler" id="rulerLabel">7.5 cm longest side</span>
+        </div>
+        <p class="board-note" id="boardNote"></p>
+        <p class="board-note proof-note">This is a rough preview. We'll email you an exact proof showing the cut line before anything prints.</p>
+      </div>
+
+      <div class="config fade rv" style="--i:3">
+        <fieldset>
+          <legend>1. Size <small>(width × height in cm)</small></legend>
+          <p class="field-hint">Choose the size that matches the <strong>longest side</strong> of your artwork. We scale your design to fit, so a design that's 10 cm wide and 6 cm tall goes in the 10 × 10 option.</p>
+          <div class="opts" id="sizeOpts"></div>
+        </fieldset>
+        <fieldset>
+          <legend>2. Quantity</legend>
+          <div class="qty-row"><select id="qtySelect" class="qty-select" aria-label="Quantity"></select></div>
+          <div class="chips" id="qtyQuick" aria-label="Popular quantities"></div>
+          <p class="field-hint more-qty">Need more than 5,000? <a href="/contact/?topic=bulk">Get in touch</a> for a custom quote.</p>
+        </fieldset>
+        <fieldset>
+          <legend>3. Artwork</legend>
+          <label class="drop" id="drop">
+            <input type="file" id="file" accept=".png,.jpg,.jpeg,.svg,.pdf,.ai">
+            <strong id="dropText">Drop your artwork here, or tap to choose a file</strong>
+            <small>PNG, JPG, SVG or PDF, up to 50MB</small>
+            <span class="upload-progress" id="uploadProgress" hidden><span></span></span>
+          </label>
+        </fieldset>
+        <fieldset>
+          <legend>4. Border colour</legend>
+          <p class="field-hint">The thin edge around your design, where we cut. Pick whichever suits your artwork. The preview updates as you choose.</p>
+          <div class="opts edge-opts">
+            <label class="opt"><input type="radio" name="edge" value="white" checked><span class="opt-face"><i class="swatch" style="background:#fff"></i><strong>White</strong></span></label>
+            <label class="opt"><input type="radio" name="edge" value="black"><span class="opt-face"><i class="swatch" style="background:#000"></i><strong>Black</strong></span></label>
+          </div>
+        </fieldset>
+        <div class="summary" aria-live="polite">
+          <span class="sum-size" id="summarySize"></span>
+          <div class="price-line"><span class="total" id="total">$0.00</span><span class="per" id="per"></span></div>
+          <span class="save" id="save"></span>
+          <button class="btn btn-block magnetic" id="checkout" type="button">Checkout</button>
+          <p class="form-error" id="checkoutError" role="alert" hidden></p>
+          <p class="fine">All prices in AUD.</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="faq" aria-labelledby="faqTitle">
+      <h2 class="sec-title" id="faqTitle">Good questions</h2>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">What's a die-cut sticker?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>A sticker cut around the outline of your design, so there's no square background. Just your artwork with a thin white border.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">How fast is the turnaround?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>Most orders are printed and shipped within X business days of approving your proof. (Placeholder: confirm real turnaround.)</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Are they waterproof?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>Yes. They're printed on vinyl with a protective laminate, so they handle rain, sun and the odd wash.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">What if my artwork isn't print-ready?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>Send what you've got. We'll check it, set up the cut line and show you a proof before anything prints.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Can I order more than one design?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>Right now it's one design per order. Got a few? Place an order for each, or get in touch for a bulk quote.</p></div></div></div>
+    </section>
+  </section>
+<script type="application/json" id="pricing-data">{{ pricing | dump | safe }}</script>
