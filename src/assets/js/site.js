@@ -9,7 +9,33 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 /* ---------- toast (shared with page scripts) ---------- */
 const toastEl = $('#toast'); let toastT;
 const toast = t => { toastEl.textContent = t; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 4500); };
-window.Deadset = {toast, RM, $, $$, clamp};
+/* ---------- cart (kept in this browser until checkout) ---------- */
+const CART_KEY = 'deadset-cart-v1';
+const cart = {
+  MAX: 20,
+  get() { try { const c = JSON.parse(localStorage.getItem(CART_KEY) || '[]'); return Array.isArray(c) ? c : []; } catch { return []; } },
+  set(items) {
+    try { localStorage.setItem(CART_KEY, JSON.stringify(items)); }
+    catch {   // storage full: keep the order, drop the little preview pictures
+      localStorage.setItem(CART_KEY, JSON.stringify(items.map(i => ({...i, thumb: null}))));
+    }
+    cart.badge();
+  },
+  add(item) { const items = cart.get(); items.push({id: crypto.randomUUID(), ...item}); cart.set(items); },
+  remove(id) { cart.set(cart.get().filter(i => i.id !== id)); },
+  clear() { try { localStorage.removeItem(CART_KEY); } catch {} cart.badge(); },
+  badge() {
+    const n = cart.get().length;
+    $$('.cart-count').forEach(el => { el.textContent = n; el.hidden = n === 0; });
+    $$('.cart-btn').forEach(el => el.setAttribute('aria-label', `Cart, ${n} design${n === 1 ? '' : 's'}`));
+  }
+};
+// After a successful payment Stripe sends people to /thanks/?order=..., so empty the cart.
+if (location.pathname === '/thanks/' && new URLSearchParams(location.search).has('order')) cart.clear();
+cart.badge();
+addEventListener('storage', e => { if (e.key === CART_KEY) cart.badge(); });
+
+window.Deadset = {toast, RM, $, $$, clamp, cart};
 
 /* ---------- small drawn stickers ---------- */
 const MUS = '#c5a64f';

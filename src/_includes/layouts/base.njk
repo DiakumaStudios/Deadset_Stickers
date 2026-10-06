@@ -30,6 +30,7 @@
     {% for l in links %}<a href="{{ l[1] }}" class="roll{% if nav == l[0] %} active{% endif %}"{% if nav == l[0] %} aria-current="page"{% endif %}><span data-text="{{ l[2] }}">{{ l[2] }}</span></a>
     {% endfor %}
   </nav>
+  <a href="/cart/" class="cart-btn" aria-label="Cart"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="cart-count" hidden>0</span></a>
   <a href="/shop/" class="btn btn-sm magnetic head-cta">Build your stickers</a>
   <button class="menu-btn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menu"><span></span><span></span></button>
 </header>

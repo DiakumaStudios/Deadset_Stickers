@@ -49,9 +49,9 @@ scripts: ["/assets/js/shop.js"]
         <fieldset>
           <legend>3. Artwork</legend>
           <label class="drop" id="drop">
-            <input type="file" id="file" accept=".png,.jpg,.jpeg,.svg,.pdf,.ai">
+            <input type="file" id="file" accept=".pdf,.ai,.eps,.svg,.png,.jpg,.jpeg,.tif,.tiff">
             <strong id="dropText">Drop your artwork here, or tap to choose a file</strong>
-            <small>PNG, JPG, SVG or PDF, up to 50MB</small>
+            <small>PDF, AI, EPS, SVG, PNG, JPG or TIFF, up to 50MB</small>
             <span class="upload-progress" id="uploadProgress" hidden><span></span></span>
           </label>
         </fieldset>
@@ -67,8 +67,10 @@ scripts: ["/assets/js/shop.js"]
           <span class="sum-size" id="summarySize"></span>
           <div class="price-line"><span class="total" id="total">$0.00</span><span class="per" id="per"></span></div>
           <span class="save" id="save"></span>
-          <button class="btn btn-block magnetic" id="checkout" type="button">Checkout</button>
-          <p class="form-error" id="checkoutError" role="alert" hidden></p>
+          <button class="btn btn-block magnetic" id="addToCart" type="button">Add to cart</button>
+          <p class="form-error" id="cartError" role="alert" hidden></p>
+          <p class="added-msg" id="addedMsg" role="status" hidden>Added to your cart! Set up your next design above, or <a href="/cart/">go to your cart</a> to check out.</p>
+          <a href="/cart/" class="btn btn-ghost btn-block" id="goCart" hidden>View cart</a>
           <p class="fine">All prices in AUD.</p>
         </div>
       </div>
@@ -76,11 +78,12 @@ scripts: ["/assets/js/shop.js"]
 
     <section class="faq" aria-labelledby="faqTitle">
       <h2 class="sec-title" id="faqTitle">Good questions</h2>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">What's a die-cut sticker?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>A sticker cut around the outline of your design, so there's no square background. Just your artwork with a thin white border.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">How fast is the turnaround?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>Most orders are printed and shipped within X business days of approving your proof. (Placeholder: confirm real turnaround.)</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">Are they waterproof?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>Yes. They're printed on vinyl with a protective laminate, so they handle rain, sun and the odd wash.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">What if my artwork isn't print-ready?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>Send what you've got. We'll check it, set up the cut line and show you a proof before anything prints.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">Can I order more than one design?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>Right now it's one design per order. Got a few? Place an order for each, or get in touch for a bulk quote.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">What's a die-cut sticker?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>A sticker cut around the outline of your design, so there's no square background. Just your artwork with a thin border.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">How long will my order take?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>Orders are printed and shipped within 3 business days of you approving your online proof.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Are your stickers weatherproof?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>Yes. Every sticker is made with outdoor signage-grade materials and inks, so they're fully waterproof and handle rain and snow with no trouble. They're UV protected too, so your design will keep looking great for 3-5 years.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">What are your artwork requirements?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p><strong>Vector artwork:</strong> PDF, AI or EPS files, with your fonts converted to outlines.</p><p><strong>Image artwork:</strong> JPEG, PNG or TIFF files, at 300 dpi at full size.</p><p>CMYK files are preferred, but we also accept RGB. Just note that some colours can shift slightly when RGB artwork is printed.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">What if my artwork isn't print-ready?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>No problem. We can help set up your artwork for print, including adding bleed, cut paths and outlines. Send us what you've got and we'll show you a proof before anything prints.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Can I order more than one design?<span class="pm" aria-hidden="true"></span></button><div class="faq-a"><div><p>Yes! Set up your first design and add it to your cart, then build the next one. Each design can have its own size, quantity and border colour, and you check out once for the whole order.</p></div></div></div>
     </section>
   </section>
 <script type="application/json" id="pricing-data">{{ pricing | dump | safe }}</script>

@@ -2,7 +2,7 @@
 import { createHmac, createHash, timingSafeEqual } from "node:crypto";
 import { getStore } from "@netlify/blobs";
 
-export const ALLOWED = ["png", "jpg", "jpeg", "svg", "pdf", "ai"];
+export const ALLOWED = ["pdf", "ai", "eps", "svg", "png", "jpg", "jpeg", "tif", "tiff"];
 export const MAX_PARTS = 20;                 // 20 x 3 MB pieces = up to 60 MB
 export const MAX_PART_BYTES = 3.5 * 1024 * 1024;
 export const ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;

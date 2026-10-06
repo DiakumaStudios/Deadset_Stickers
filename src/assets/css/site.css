@@ -523,3 +523,56 @@ p{margin:0 0 1em}
 .thanks .lede{max-width:44ch}
 .upload-progress{height:6px;background:var(--line);margin-top:.6rem;overflow:hidden}
 .upload-progress span{display:block;height:100%;width:0;background:var(--mus);transition:width .2s}
+
+/* ---------- cart ---------- */
+.cart-btn{position:relative;display:grid;place-items:center;flex:none;width:46px;height:46px;color:var(--bone);text-decoration:none;border:2px solid var(--line);
+  transition:border-color .2s,color .2s,transform .35s cubic-bezier(.2,1.6,.4,1)}
+.cart-btn:hover{border-color:var(--mus);color:var(--mus);transform:rotate(-6deg)}
+.cart-btn svg{width:22px;height:22px}
+body[data-nav="cart"] .cart-btn{border-color:var(--mus);color:var(--mus)}
+.cart-count{position:absolute;top:-9px;right:-9px;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--mus);color:var(--ink);font:400 .75rem/22px var(--display);text-align:center}
+.menu-open .cart-btn{color:var(--ink);border-color:rgba(24,24,24,.3)}
+.added-msg{margin:0;padding:.8rem 1rem;background:rgba(197,166,79,.12);border-left:4px solid var(--mus);color:var(--bone)}
+.added-msg a{color:var(--mus);font-weight:700}
+.cart-page{padding:130px var(--pad) clamp(90px,10vw,140px)}
+.cart-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start;margin-top:clamp(2.5rem,5vw,4rem)}
+.cart-items{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
+.cart-item{display:grid;grid-template-columns:96px minmax(0,1fr) auto;grid-template-areas:"thumb info price" "thumb info remove";align-items:center;gap:.4rem 1.2rem;
+  background:var(--ink-2);border:2px solid var(--line);padding:1rem;transition:opacity .3s,transform .3s}
+.cart-item.leaving{opacity:0;transform:translateX(30px)}
+.cart-item.broken{border-color:var(--warn)}
+.ci-thumb{grid-area:thumb;width:96px;height:96px;display:grid;place-items:center;background:var(--ink-3);color:var(--muted)}
+.ci-thumb img{max-width:84px;max-height:84px;width:auto;height:auto}
+.ci-thumb svg{width:40px;height:40px}
+.ci-info{grid-area:info;display:flex;flex-direction:column;gap:.15rem;min-width:0}
+.ci-info strong{font:400 1.05rem/1.15 var(--display);text-transform:uppercase}
+.ci-info span{color:var(--muted);font-size:.92rem}
+.ci-file{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ci-price{grid-area:price;font:400 1.15rem/1 var(--display);color:var(--mus);text-align:right;align-self:end}
+.ci-remove{grid-area:remove;justify-self:end;align-self:start;background:none;border:0;color:var(--muted);font:700 .85rem/1 var(--body);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:.3rem 0}
+.ci-remove:hover{color:var(--warn)}
+.cart-summary{position:sticky;top:calc(env(safe-area-inset-top,0px) + 100px);background:var(--ink-2);border:2px solid var(--line);padding:clamp(1.3rem,3vw,2rem);display:grid;gap:1rem;box-shadow:10px 10px 0 var(--mus)}
+.cart-summary h2{font:400 1.3rem/1 var(--display);text-transform:uppercase;margin:0}
+.cart-summary dl{margin:0;display:grid;gap:.6rem}
+.cart-summary dl div{display:flex;justify-content:space-between;gap:1rem}
+.cart-summary dt{color:var(--muted)}
+.cart-summary dd{margin:0;font-weight:700}
+.cart-summary .sum-total{border-top:2px solid var(--bone);padding-top:.8rem;margin-top:.2rem}
+.cart-summary .sum-total dt{color:var(--bone);font:400 1.1rem/1.2 var(--display);text-transform:uppercase}
+.cart-summary .sum-total dd{font:400 1.6rem/1 var(--display);color:var(--mus)}
+.cart-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1rem;padding:clamp(3rem,8vw,6rem) 1rem}
+.cart-empty img{height:110px;width:auto;filter:brightness(.38);animation:bob 4.2s ease-in-out infinite}
+.cart-empty h2{font:400 clamp(1.6rem,3vw,2.4rem)/1 var(--display);text-transform:uppercase;margin:0}
+.cart-empty p{color:var(--muted);margin:0 0 .6rem}
+@media (max-width:900px){
+  .cart-btn{margin-left:auto}
+  .menu-btn{margin-left:.7rem}
+  .cart-layout{grid-template-columns:1fr}
+  .cart-summary{position:static}
+}
+@media (max-width:520px){
+  .cart-item{grid-template-columns:72px minmax(0,1fr);grid-template-areas:"thumb info" "thumb price" "remove remove";padding:.8rem}
+  .ci-thumb{width:72px;height:72px}.ci-thumb img{max-width:62px;max-height:62px}
+  .ci-price{text-align:left}
+  .ci-remove{justify-self:start}
+}

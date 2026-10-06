@@ -15,7 +15,7 @@ export default async (req) => {
   try { name = decodeURIComponent(req.headers.get("x-file-name") || "artwork"); } catch {}
   name = name.replace(/[\\/\r\n"]/g, "_").slice(0, 150);
   const ext = (name.split(".").pop() || "").toLowerCase();
-  if (!ALLOWED.includes(ext)) return json({ error: "Please upload a PNG, JPG, SVG or PDF file." }, 400);
+  if (!ALLOWED.includes(ext)) return json({ error: "Please upload a PDF, AI, EPS, SVG, PNG, JPG or TIFF file." }, 400);
 
   const body = await req.arrayBuffer();
   if (!body.byteLength || body.byteLength > MAX_PART_BYTES) return json({ error: "That piece of the file was too big." }, 413);

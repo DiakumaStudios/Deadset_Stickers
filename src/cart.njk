@@ -1,0 +1,43 @@
+---
+layout: layouts/base.njk
+title: Your cart
+description: "Your Deadset Stickers order."
+nav: cart
+permalink: /cart/
+scripts: ["/assets/js/cart.js"]
+eleventyExcludeFromCollections: true
+---
+<section class="cart-page">
+  <div class="shop-head">
+    <h1 class="mega split rv" aria-label="Your cart">
+      <span class="line" aria-hidden="true"><span>Your</span></span>
+      <span class="line" aria-hidden="true"><span>cart</span></span>
+    </h1>
+    <p class="lede fade rv" style="--i:2">Check your designs, then head to secure checkout. You only pay shipping once for the whole order.</p>
+  </div>
+
+  <div class="cart-layout" id="cartLayout" hidden>
+    <ul class="cart-items" id="cartItems" aria-label="Designs in your cart"></ul>
+    <aside class="cart-summary" aria-label="Order summary">
+      <h2>Order summary</h2>
+      <dl>
+        <div><dt id="sumCount">Stickers</dt><dd id="sumSubtotal">$0.00</dd></div>
+        <div><dt>Shipping (Australia-wide)</dt><dd id="sumShipping">$0.00</dd></div>
+        <div class="sum-total"><dt>Total</dt><dd id="sumTotal">$0.00</dd></div>
+      </dl>
+      <p class="fine" id="sumGst">Includes GST.</p>
+      <button class="btn btn-block magnetic" id="checkout" type="button">Checkout</button>
+      <p class="form-error" id="checkoutError" role="alert" hidden></p>
+      <a href="/shop/" class="btn btn-ghost btn-block">Add another design</a>
+      <p class="fine">You'll get a proof by email before anything prints.</p>
+    </aside>
+  </div>
+
+  <div class="cart-empty" id="cartEmpty" hidden>
+    <img src="/assets/img/skull-only.svg" alt="">
+    <h2>Your cart is empty</h2>
+    <p>Pick a size, upload your artwork and add it to your cart.</p>
+    <a href="/shop/" class="btn magnetic">Build your stickers</a>
+  </div>
+</section>
+<script type="application/json" id="pricing-data">{{ pricing | dump | safe }}</script>

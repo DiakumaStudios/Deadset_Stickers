@@ -8,15 +8,20 @@ excerpt: "File types, resolution and the small things that make a big difference
 ---
 Good stickers start with good files. The good news: you don't need to be a designer to get it right, and we check every file before it prints.
 
-## The best file types
+## Vector artwork (best)
 
-- **Vector files (PDF, SVG or AI)** are ideal. They stay sharp at any size.
-- **PNG with a transparent background** is the next best thing, and the easiest for most people.
-- **JPG** works fine, but it always has a background, so we'll need to cut around your design.
+- **PDF, AI or EPS files** are ideal. They stay sharp at any size.
+- **Convert your fonts to outlines** before you send the file, so the text prints exactly as you designed it.
 
-## Resolution
+## Image artwork
 
-For PNG and JPG files, aim for **300 dpi at the size you're printing**. For a 7.5 cm sticker, that's roughly 900 × 900 pixels. Anything smaller can look soft or pixelated.
+- **JPEG, PNG or TIFF files** all work.
+- Make sure the image is **300 dpi at full size**. For a 7.5 cm sticker, that's roughly 900 × 900 pixels. Anything smaller can look soft or pixelated.
+- A PNG with a transparent background makes it easy to see exactly how your sticker will be cut.
+
+## CMYK or RGB?
+
+**CMYK files are preferred**, because that's how printers mix colour. We also accept RGB files, but some colours can shift slightly when they're printed, especially very bright blues and greens.
 
 ## Keep important bits off the edge
 
@@ -24,4 +29,4 @@ Text and fine details right at the edge of your design can get too close to the 
 
 ## Not sure? Send it anyway
 
-Every order gets a proof before printing. If something needs fixing, we'll tell you, and we can usually sort it for you.
+We can help set up your artwork for print, including adding bleed, cut paths and outlines. Every order gets an online proof before printing, and nothing prints until you approve it.

@@ -1,8 +1,9 @@
-/* Deadset Stickers: the sticker builder (price calculator, artwork preview, checkout). */
+/* Deadset Stickers: the sticker builder (price calculator, artwork preview, add to cart). */
 (() => {
-const {RM, $, $$, clamp} = window.Deadset;
+const {RM, $, $$, clamp, toast, cart} = window.Deadset;
 if (!$('#pricing-data')) return;
 let chosenFile = null, uploaded = null;   // the customer's artwork, and its upload once sent
+let artIsCustom = false;                  // true once the preview shows the customer's own design
 
 /* ---------- shop: price calculator ---------- */
 const PRICING = JSON.parse($('#pricing-data').textContent);
@@ -140,7 +141,7 @@ function renderArt() {
   lastRender = key;
   showArt(stickerShape(artBase, edge, cm));
 }
-const useArt = canvas => { artBase = canvas; artId++; renderArt(); };
+const useArt = (canvas, custom = true) => { artBase = canvas; artId++; artIsCustom = custom; renderArt(); };
 
 /* PDF (and PDF-compatible Illustrator) previews: the PDF reader is only loaded when someone uploads one. */
 const PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/';
@@ -216,17 +217,23 @@ function cutOut(img) {
 }
 
 const drop = $('#drop'), dropText = $('#dropText');
-const ALLOWED = ['png', 'jpg', 'jpeg', 'svg', 'pdf', 'ai'];
+const ALLOWED = ['pdf', 'ai', 'eps', 'svg', 'png', 'jpg', 'jpeg', 'tif', 'tiff'];
+const NO_PREVIEW = ['eps', 'tif', 'tiff'];
 const say = (t, err = false) => { dropText.textContent = t; drop.classList.toggle('error', err); };
 function handle(file) {
   if (!file) return;
   chosenFile = null; uploaded = null;
   const ext = (file.name.split('.').pop() || '').toLowerCase();
-  if (!ALLOWED.includes(ext)) return say(`We can't print from .${ext} files. Upload a PNG, JPG, SVG or PDF instead.`, true);
+  if (!ALLOWED.includes(ext)) return say(`We can't print from .${ext} files. Upload a PDF, AI, EPS, SVG, PNG, JPG or TIFF instead.`, true);
   if (!file.size) return say(`${file.name} looks empty. Try exporting it again.`, true);
   if (file.size > 50 * 1024 * 1024) return say('That file is over 50MB. Export a smaller version and try again.', true);
   chosenFile = file;
-  $('#checkoutError').hidden = true;
+  $('#cartError').hidden = true; $('#addedMsg').hidden = true;
+  if (NO_PREVIEW.includes(ext)) {
+    loadSample();
+    say(`Got ${file.name}. We can't show a preview of this file type here, but we'll show it in your proof.`);
+    return;
+  }
   if (file.type.startsWith('image/')) {
     const r = new FileReader();
     r.onload = () => {
@@ -238,7 +245,7 @@ function handle(file) {
           : res.busy ? `Using ${file.name}. The background isn't a plain colour, so the preview shows it as a square. We'll sort the cut line in your proof.`
           : `Using ${file.name}. Drop another file to swap it.`);
       };
-      img.onerror = () => say(`We couldn't open ${file.name}. Try exporting it again as a PNG.`, true);
+      img.onerror = () => { chosenFile = null; say(`We couldn't open ${file.name}. Try exporting it again as a PNG.`, true); };
       img.src = r.result;
     };
     r.readAsDataURL(file);
@@ -250,19 +257,20 @@ function handle(file) {
       useArt(res.canvas);
       say(res.busy ? `Using page 1 of ${file.name}. The background isn't a plain colour, so the preview shows it as a square. We'll sort the cut line in your proof.`
         : `Using page 1 of ${file.name}. Drop another file to swap it.`);
-    }).catch(err => { console.error('PDF preview failed', err); say(ext === 'ai'
+    }).catch(err => { console.error('PDF preview failed', err); loadSample(); say(ext === 'ai'
       ? `Got ${file.name}. We can't preview this Illustrator file here, but we'll show it in your proof.`
       : `Got ${file.name}. We couldn't preview this PDF here, but we'll show it in your proof.`); });
   }
 }
-{ const sample = new Image(); sample.onload = () => useArt(cutOut(sample).canvas); sample.src = '/assets/img/cactus.svg'; }
+function loadSample() { const sample = new Image(); sample.onload = () => useArt(cutOut(sample).canvas, false); sample.src = '/assets/img/cactus.svg'; }
+loadSample();
 $('#file').addEventListener('change', e => handle(e.target.files[0]));
 ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('over'); }));
 ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove('over'); }));
 drop.addEventListener('drop', e => handle(e.dataTransfer.files[0]));
 
 
-/* ---------- checkout: upload the artwork, then hand over to Stripe ---------- */
+/* ---------- add to cart: upload the artwork, then save the design in the cart ---------- */
 const CHUNK = 3 * 1024 * 1024;            // big files go up in 3 MB pieces
 const progWrap = $('#uploadProgress'), progBar = $('#uploadProgress span');
 async function uploadArtwork(file) {
@@ -288,36 +296,53 @@ async function uploadArtwork(file) {
   return id;
 }
 
-const checkoutBtn = $('#checkout'), checkoutErr = $('#checkoutError'), btnLabel = checkoutBtn.textContent;
-const showErr = msg => { checkoutErr.textContent = msg; checkoutErr.hidden = false; };
-const resetBtn = () => { checkoutBtn.disabled = false; checkoutBtn.textContent = btnLabel; };
-checkoutBtn.addEventListener('click', async () => {
-  checkoutErr.hidden = true;
+const addBtn = $('#addToCart'), cartErr = $('#cartError'), addedMsg = $('#addedMsg'), goCart = $('#goCart'), btnLabel = addBtn.textContent;
+const showErr = msg => { cartErr.textContent = msg; cartErr.hidden = false; };
+const resetBtn = () => { addBtn.disabled = false; addBtn.textContent = btnLabel; };
+const syncGoCart = () => {
+  const n = cart.get().length;
+  goCart.hidden = n === 0;
+  goCart.textContent = `View cart (${n} design${n === 1 ? '' : 's'})`;
+};
+// A small picture of the sticker for the cart page (only when we could preview their file).
+function makeThumb() {
+  if (!artIsCustom) return null;
+  const img = $('#previewArt');
+  if (!img.naturalWidth) return null;
+  const k = 220 / Math.max(img.naturalWidth, img.naturalHeight);
+  const c = document.createElement('canvas');
+  c.width = Math.max(1, Math.round(img.naturalWidth * k)); c.height = Math.max(1, Math.round(img.naturalHeight * k));
+  c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+  return c.toDataURL('image/webp', .82);
+}
+addBtn.addEventListener('click', async () => {
+  cartErr.hidden = true; addedMsg.hidden = true;
   if (!chosenFile) {
     showErr('Please add your artwork first (step 3).');
     $('#drop').scrollIntoView({behavior: RM ? 'auto' : 'smooth', block: 'center'});
     return;
   }
-  checkoutBtn.disabled = true;
+  if (cart.get().length >= cart.MAX) { showErr(`Your cart can hold up to ${cart.MAX} designs. Check out these first, or get in touch for a bigger order.`); return; }
+  addBtn.disabled = true;
   try {
-    checkoutBtn.textContent = 'Uploading artwork…';
+    addBtn.textContent = 'Uploading artwork…';
     const artwork = await uploadArtwork(chosenFile);
-    checkoutBtn.textContent = 'Opening secure checkout…';
-    const res = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({size: si, quantity: qi, border: edge, artwork})
-    });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok || !data.url) throw new Error(data.error || 'Checkout isn\'t available right now.');
-    location.href = data.url;
+    cart.add({size: si, quantity: qi, border: edge, artwork, name: chosenFile.name, thumb: makeThumb()});
+    // Clear the builder, ready for the next design (size, quantity and border stay as they were).
+    chosenFile = null; uploaded = null; $('#file').value = ''; progWrap.hidden = true;
+    say('Drop your next design here, or tap to choose a file');
+    loadSample();
+    addedMsg.hidden = false;
+    syncGoCart();
+    toast('Added to your cart. Set up another design, or head to your cart to check out.');
   } catch (err) {
     showErr(`${err.message} Please try again, or get in touch if it keeps happening.`);
+  } finally {
     resetBtn();
   }
 });
-// If someone comes back from Stripe with the back button, make the button usable again.
-addEventListener('pageshow', e => { if (e.persisted) resetBtn(); });
+addEventListener('pageshow', e => { if (e.persisted) { resetBtn(); syncGoCart(); } });
+syncGoCart();
 
 /* ---------- start ---------- */
 let rt2;
