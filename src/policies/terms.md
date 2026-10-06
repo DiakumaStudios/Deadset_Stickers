@@ -4,7 +4,7 @@ description: "The terms that apply when you order custom die-cut stickers from D
 permalink: /terms/
 updated: 2026-10-06
 ---
-These terms apply when you order from Deadset Stickers. By placing an order, you agree to them. Deadset Stickers is a trading name of Project Swarm Pty Ltd, based in Victoria, Australia.
+These terms apply when you order from Deadset Stickers. By placing an order, you agree to them. Deadset Stickers is based in Victoria, Australia.
 
 ## Prices and payment
 

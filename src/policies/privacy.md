@@ -4,7 +4,7 @@ description: "How Deadset Stickers collects, uses and protects your personal inf
 permalink: /privacy/
 updated: 2026-10-06
 ---
-Deadset Stickers respects your privacy. This policy explains what personal information we collect, how we use it, and the choices you have. Deadset Stickers is a trading name of Project Swarm Pty Ltd.
+Deadset Stickers respects your privacy. This policy explains what personal information we collect, how we use it, and the choices you have.
 
 ## What we collect
 
