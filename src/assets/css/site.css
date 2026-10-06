@@ -247,7 +247,7 @@ p{margin:0 0 1em}
 .shot-frame{aspect-ratio:4/5;overflow:hidden;background:var(--ink-3)}
 .shot-frame img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.9,.2,1);user-select:none;-webkit-user-drag:none}
 .shot:hover .shot-frame img{transform:scale(1.07)}
-.shot figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.9rem .2rem 1rem}
+.shot figcaption{padding:.9rem .2rem 1rem}
 .shot strong{font:400 1.05rem/1.1 var(--display);text-transform:uppercase}
 .shot span{font-size:.82rem;color:#5a5646;white-space:nowrap}
 .reel-bar{height:4px;background:var(--line);position:relative}
@@ -276,8 +276,9 @@ p{margin:0 0 1em}
 /* ---------- about ---------- */
 .about-hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:2rem;align-items:center;min-height:92vh;min-height:92svh;padding:130px var(--pad) 70px}
 .about-hero .mega{font-size:clamp(2.8rem,6.6vw,6.8rem)}
-.about-badge{justify-self:center;width:min(100%,460px)}
-.about-badge img{transform:rotate(var(--spin,0deg))}
+.about-badge{justify-self:center;width:min(100%,420px)}
+.about-skull{width:100%;height:auto;animation:bob 4.2s ease-in-out infinite;transition:scale .5s cubic-bezier(.2,1.6,.4,1)}
+.about-skull:hover{scale:1.06}
 .manifesto{padding:clamp(90px,12vw,170px) var(--pad);background:var(--ink-2)}
 .manifesto-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:center;max-width:78rem}
 .scrub{font:400 clamp(2rem,4.4vw,3.8rem)/1 var(--display);text-transform:uppercase;letter-spacing:-.015em;margin:0;max-width:13ch}
@@ -493,7 +494,7 @@ p{margin:0 0 1em}
   .contact-info{position:static}
   .contact-skull{display:none}
   .values{gap:3rem}
-  .about-badge{width:min(80%,360px)}
+  .about-badge{width:min(70%,300px)}
 }
 @media (max-width:760px){
   .how{height:auto!important}
