@@ -17,6 +17,7 @@ export default function (eleventyConfig) {
   );
   eleventyConfig.addFilter("excludeUrl", (posts, url) => posts.filter((p) => p.url !== url));
   eleventyConfig.addFilter("limit", (arr, n) => arr.slice(0, n));
+  eleventyConfig.addFilter("isoDate", (date) => new Date(date).toISOString().slice(0, 10));
 
   return {
     dir: { input: "src", includes: "_includes", data: "_data", output: "_site" },

@@ -1,7 +1,8 @@
 ---
 title: "What size sticker should I get?"
 date: 2026-09-10
-tag: Guides
+category: Guides
+readTime: "2 min read"
 art: cactus
 tone: bone
 excerpt: "From tiny laptop stickers to big shopfront decals, a quick guide to picking the right size."

@@ -1,5 +1,6 @@
 {
   "layout": "layouts/post.njk",
-  "permalink": "/blog/{{ page.fileSlug }}/",
-  "nav": "blog"
+  "permalink": "/blog/{% if slug %}{{ slug | slugify }}{% else %}{{ page.fileSlug }}{% endif %}/",
+  "nav": "blog",
+  "ogType": "article"
 }

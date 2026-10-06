@@ -1,9 +1,26 @@
 ---
 layout: layouts/base.njk
 ---
+{%- set ldTitle = title -%}
+{%- set ldDesc = meta_description or excerpt -%}
+{%- set ldImage = social_image or "/assets/img/share.png" -%}
+{%- set ldDate = page.date | isoDate -%}
+{%- set ld = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": ldTitle,
+  "description": ldDesc,
+  "datePublished": ldDate,
+  "image": env.url + ldImage,
+  "url": env.url + page.url,
+  "keywords": keywords or "",
+  "author": { "@type": "Organization", "name": "Deadset Stickers" },
+  "publisher": { "@type": "Organization", "name": "Deadset Stickers" }
+} -%}
+<script type="application/ld+json">{{ ld | dump | safe }}</script>
 <article class="post">
     <a href="/blog/" class="post-back">← All posts</a>
-    <div class="post-meta fade rv"><span class="post-tag">{{ tag }}</span><span>{{ page.date | auDate }}</span><span>{{ content | readMins }} min read</span></div>
+    <div class="post-meta fade rv"><span class="post-tag">{{ category }}</span><span>{{ page.date | auDate }}</span><span>{% if readTime %}{{ readTime }}{% else %}{{ content | readMins }} min read{% endif %}</span></div>
     <h1 class="post-title fade rv">{{ title }}</h1>
     <div class="post-hero post-art fade rv tone-{{ tone }}"><img src="/assets/img/{{ art }}.svg" alt=""></div>
     <div class="post-content fade rv">

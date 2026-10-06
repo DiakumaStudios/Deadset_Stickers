@@ -1,7 +1,8 @@
 ---
 title: "White or black border? How to choose"
 date: 2026-09-17
-tag: Guides
+category: Guides
+readTime: "2 min read"
 art: logo-icon
 tone: ink
 excerpt: "The border is the thin edge around your design. Here's how to pick the colour that makes your artwork pop."

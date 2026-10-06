@@ -1,7 +1,8 @@
 ---
 title: "How to get your artwork sticker-ready"
 date: 2026-09-24
-tag: Guides
+category: Guides
+readTime: "2 min read"
 art: skull-only
 tone: mus
 excerpt: "File types, resolution and the small things that make a big difference to how your stickers turn out."

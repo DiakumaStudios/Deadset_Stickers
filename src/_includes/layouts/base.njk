@@ -3,11 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{% if nav == "home" %}Deadset Stickers | {{ title }}{% else %}{{ title }} | Deadset Stickers{% endif %}</title>
-<meta name="description" content="{{ description or site.description }}">
-<meta property="og:title" content="{{ title }} | Deadset Stickers">
-<meta property="og:description" content="{{ description or site.description }}">
-<meta property="og:type" content="website">
+{%- set seoTitle = ("Deadset Stickers | " + title) if nav == "home" else (title + " | Deadset Stickers") -%}
+{%- set seoDesc = (meta_description or description or excerpt or site.description) | striptags -%}
+{%- set shareImage = social_image or "/assets/img/share.png" -%}
+<title>{{ seoTitle }}</title>
+<meta name="description" content="{{ seoDesc }}">
+{% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
+{% if env.url %}<link rel="canonical" href="{{ env.url }}{{ page.url }}">{% endif %}
+<meta property="og:site_name" content="Deadset Stickers">
+<meta property="og:title" content="{{ seoTitle }}">
+<meta property="og:description" content="{{ seoDesc }}">
+<meta property="og:type" content="{{ ogType or 'website' }}">
+{% if env.url %}<meta property="og:url" content="{{ env.url }}{{ page.url }}">
+<meta property="og:image" content="{{ env.url }}{{ shareImage }}">{% endif %}
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#181818">
 <link rel="icon" href="/assets/img/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">

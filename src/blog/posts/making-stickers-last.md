@@ -1,7 +1,8 @@
 ---
 title: "Making your stickers last"
 date: 2026-09-03
-tag: Tips
+category: Tips
+readTime: "2 min read"
 art: skull-only
 tone: ink
 excerpt: "Our stickers are tough, but a few simple habits keep them looking brand new for longer."

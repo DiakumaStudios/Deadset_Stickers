@@ -3,40 +3,48 @@ backend:
   name: git-gateway
   branch: main
 
+# Where uploaded images are stored, and the path used to reference them
 media_folder: "src/assets/uploads"
 public_folder: "/assets/uploads"
+publish_mode: simple
 
 collections:
-  - name: posts
-    label: Blog posts
-    label_singular: Blog post
-    folder: src/blog/posts
+  - name: "posts"
+    label: "Blog Posts"
+    label_singular: "Post"
+    folder: "src/blog/posts"
     create: true
-    slug: "{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     sortable_fields: [date, title]
-    summary: "{{title}} ({{date}})"
+    summary: "{{title}}"
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Date, name: date, widget: datetime, date_format: "DD/MM/YYYY", time_format: false, format: "YYYY-MM-DD", picker_utc: true }
-      - { label: Category, name: tag, widget: select, options: [Guides, Tips, News, Behind the scenes], default: Guides }
-      - label: Picture
-        name: art
-        widget: select
-        default: skull-only
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Guides", "Tips", "News", "Behind the scenes"], default: "Guides" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Read Time", name: "readTime", widget: "string", default: "3 min read", hint: "Shown next to the date, e.g. '3 min read'" }
+      - label: "Picture"
+        name: "art"
+        widget: "select"
+        default: "skull-only"
+        hint: "The icon shown on the blog card and at the top of the post."
         options:
-          - { label: Skull, value: skull-only }
-          - { label: Cactus, value: cactus }
-          - { label: Cactus and skull, value: logo-icon }
-      - label: Picture background
-        name: tone
-        widget: select
-        default: ink
+          - { label: "Skull", value: "skull-only" }
+          - { label: "Cactus", value: "cactus" }
+          - { label: "Cactus and skull", value: "logo-icon" }
+      - label: "Picture background"
+        name: "tone"
+        widget: "select"
+        default: "ink"
         options:
-          - { label: Black, value: ink }
-          - { label: Gold, value: mus }
-          - { label: Cream, value: bone }
-      - { label: Short summary (shown on the blog page), name: excerpt, widget: text }
-      - { label: Post, name: body, widget: markdown }
+          - { label: "Black", value: "ink" }
+          - { label: "Gold", value: "mus" }
+          - { label: "Cream", value: "bone" }
+      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "One or two lines shown on the blog card, and used as the Google search snippet if no SEO description is set below." }
+      - { label: "Body", name: "body", widget: "markdown", required: false, hint: "The full article content." }
+      - { label: "Custom URL slug", name: "slug", widget: "string", required: false, hint: "Optional. Leave blank to auto-generate from the title. E.g. entering 'sticker-sizes' gives the link .../blog/sticker-sizes/" }
+      - { label: "SEO meta description", name: "meta_description", widget: "text", required: false, hint: "Optional. The summary shown under the title in Google search results. Leave blank to reuse the Excerpt above." }
+      - { label: "SEO keywords", name: "keywords", widget: "string", required: false, hint: "Optional. Comma-separated, e.g. custom stickers, die cut stickers, Melbourne" }
+      - { label: "Social share image", name: "social_image", widget: "image", required: false, hint: "Optional. Shown when this post is shared on Facebook/LinkedIn/etc." }
 
   - name: shop
     label: Shop settings
