@@ -1,0 +1,5 @@
+{
+  "layout": "layouts/policy.njk",
+  "nav": "none",
+  "eleventyExcludeFromCollections": true
+}

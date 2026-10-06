@@ -24,7 +24,7 @@ $('#sizeOpts').innerHTML = SIZES.map((z, i) =>
 $('#qtySelect').innerHTML = QTYS.map((q, i) => `<option value="${i}"${i === qi ? ' selected' : ''}>${fmtQty(q)} stickers</option>`).join('');
 $('#qtyQuick').innerHTML = QUICK.map(q => `<button type="button" class="chip" data-q="${QTYS.indexOf(q)}">${fmtQty(q)}</button>`).join('');
 $('#sizeOpts').addEventListener('change', e => { si = +e.target.value; update(); });
-$$('input[name=edge]').forEach(r => r.addEventListener('change', () => { edge = r.value; $('#stack').style.setProperty('--edge', edge === 'black' ? '#000' : '#fff'); renderArt(); update(); }));
+$$('input[name=edge]').forEach(r => r.addEventListener('change', () => { edge = r.value; $('#stack').style.setProperty('--edge', edge === 'black' ? '#000' : '#fff'); if (!artIsCustom) loadSample(); renderArt(); update(); }));
 $('#qtySelect').addEventListener('change', e => { qi = +e.target.value; update(); });
 $('#qtyQuick').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; qi = +c.dataset.q; $('#qtySelect').value = qi; update(); });
 
@@ -262,7 +262,20 @@ function handle(file) {
       : `Got ${file.name}. We couldn't preview this PDF here, but we'll show it in your proof.`); });
   }
 }
-function loadSample() { const sample = new Image(); sample.onload = () => useArt(cutOut(sample).canvas, false); sample.src = '/assets/img/cactus.svg'; }
+// The sample sticker: a black cactus on a white border, or the cream cactus on a black border, so it always stands out.
+function loadSample() {
+  const sample = new Image();
+  sample.onload = () => {
+    const cv = cutOut(sample).canvas;
+    if (edge === 'white') {
+      const cx = cv.getContext('2d'), d = cx.getImageData(0, 0, cv.width, cv.height);
+      for (let i = 0; i < d.data.length; i += 4) { d.data[i] = 24; d.data[i + 1] = 24; d.data[i + 2] = 24; }
+      cx.putImageData(d, 0, 0);
+    }
+    useArt(cv, false);
+  };
+  sample.src = '/assets/img/cactus.svg';
+}
 loadSample();
 $('#file').addEventListener('change', e => handle(e.target.files[0]));
 ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('over'); }));
