@@ -3,7 +3,7 @@ title: "Meet Deadset Stickers: Custom Stickers Australia-Wide"
 category: Behind the scenes
 date: 2026-10-09T11:34:00.000+08:00
 readTime: 4 min read
-art: logo-icon
+art: cactus
 tone: ink
 excerpt: >
   Deadset Stickers started with a simple idea: make custom stickers that are
