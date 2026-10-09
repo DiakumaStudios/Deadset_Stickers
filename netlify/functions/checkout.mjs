@@ -81,7 +81,7 @@ export default async (req) => {
           price_data: {
             currency: "aud",
             unit_amount: cents(pricing.shipping),
-            product_data: { name: "Shipping (Australia-wide)" },
+            product_data: { name: "Express shipping (Australia-wide)" },
           },
           quantity: 1,
           tax_rates: [gst],

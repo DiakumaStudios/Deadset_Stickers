@@ -2,14 +2,14 @@
 title: "Terms of sale"
 description: "The terms that apply when you order custom die-cut stickers from Deadset Stickers."
 permalink: /terms/
-updated: 2026-10-06
+updated: 2026-10-09
 ---
 These terms apply when you order from Deadset Stickers. By placing an order, you agree to them. Deadset Stickers is based in Victoria, Australia.
 
 ## Prices and payment
 
 - All prices are in Australian dollars and include GST.
-- Shipping is a flat $13 per order, including GST.
+- Shipping is Express shipping at a flat $13 per order, including GST.
 - The price you pay is the price shown at checkout. We may change our prices from time to time, but that won't affect orders you've already placed.
 - Payment is taken securely through Stripe when you place your order.
 
@@ -45,7 +45,7 @@ We can refuse to print artwork that we believe is illegal, offensive, hateful, o
 
 ## Turnaround and delivery
 
-Orders are printed and shipped within 3 business days of you approving your proof. Delivery times after that depend on the carrier and your location. See our [shipping and returns policy](/shipping-returns/) for details.
+Orders are printed and sent by Express shipping within 3 business days of you approving your proof. Delivery times after that depend on the carrier and your location. See our [shipping and returns policy](/shipping-returns/) for details.
 
 ## Cancellations and refunds
 

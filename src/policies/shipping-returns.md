@@ -2,7 +2,7 @@
 title: "Shipping and returns"
 description: "Delivery times, shipping costs, and what happens if something goes wrong with your Deadset Stickers order."
 permalink: /shipping-returns/
-updated: 2026-10-06
+updated: 2026-10-09
 ---
 We want you to love your stickers. This page explains how shipping works and what we do if something isn't right.
 
@@ -12,13 +12,13 @@ We currently ship anywhere in **Australia**.
 
 ## Shipping cost
 
-Shipping is a flat **$13 per order** (including GST), no matter how many designs or stickers are in your order.
+Every order ships by **Express shipping** for a flat **$13 per order** (including GST), no matter how many designs or stickers are in your order.
 
 ## How long it takes
 
 1. After you place your order, we check your artwork and email you an **online proof** showing exactly how your stickers will be printed and cut.
 2. Once you approve your proof, your order is **printed and shipped within 3 business days**.
-3. Delivery time then depends on where you are in Australia. Most orders arrive within a few business days of being shipped, but remote areas can take longer.
+3. Your order is sent by Express shipping, so it gets to you as quickly as possible. Delivery time still depends on where you are in Australia, and remote areas can take a little longer.
 
 Business days are Monday to Friday, not including public holidays.
 

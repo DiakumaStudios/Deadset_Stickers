@@ -229,6 +229,18 @@ $$('.faq-q').forEach(b => b.addEventListener('click', () => {
   const open = b.parentElement.classList.toggle('open');
   b.setAttribute('aria-expanded', open);
 }));
+// Links like "#artwork-requirements" open that FAQ answer and scroll to it.
+const openFaq = id => {
+  const item = id && document.getElementById(id);
+  if (!item || !item.classList.contains('faq-item')) return;
+  item.classList.add('open'); $('.faq-q', item).setAttribute('aria-expanded', 'true');
+  setTimeout(() => item.scrollIntoView({behavior: RM ? 'auto' : 'smooth', block: 'center'}), 50);
+};
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-open-faq]'); if (!a) return;
+  e.preventDefault(); openFaq(a.getAttribute('href').slice(1));
+});
+if (location.hash) openFaq(location.hash.slice(1));
 
 /* ---------- resize ---------- */
 let rt;
